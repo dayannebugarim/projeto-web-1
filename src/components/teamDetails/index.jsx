@@ -55,7 +55,7 @@ export default function TeamDetails({ open, setOpen, data }) {
             </PlayersContainer>
           </TeamContainer>
 
-          {/* <TeamStats /> */}
+          <TeamStats teamId={data.team.id} />
         </TeamDetailsContainer>
       </Container>
     </>

@@ -25,7 +25,7 @@ export default function TeamsList({ data }) {
         </TeamContainer>
       </TeamsContainer>
 
-      <TeamDetails open={open} setOpen={setOpen} data={data} />
+      {open && <TeamDetails open={open} setOpen={setOpen} data={data} />}
     </>
   );
 }

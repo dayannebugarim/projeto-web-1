@@ -1,5 +1,6 @@
 import Banner from "./components/banner";
 import MatchesCard from "./components/matchesCard";
+import TeamStats from "./components/teamStats";
 import TeamsCard from "./components/teamsCard";
 import Dashboard from "./pages/dashboard";
 
@@ -8,9 +9,9 @@ function App() {
     <>
       <h1>Brasileirão</h1>
       {/* <Dashboard /> */}
-      <Banner />
+      {/* <Banner /> */}
       <div style={{display: 'flex', justifyContent: 'space-between', gap: '1.5rem'}}>
-        <MatchesCard />
+        {/* <MatchesCard /> */}
         <TeamsCard />
       </div>
     </>

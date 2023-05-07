@@ -12,7 +12,7 @@ import {
   InfoValue,
 } from "./styles";
 
-export default function TeamStats() {
+export default function TeamStats({ teamId }) {
   const [data, setData] = useState([]);
   const [wins, setWins] = useState("0");
   const [draws, setDraws] = useState("0");
@@ -22,55 +22,57 @@ export default function TeamStats() {
     getData("teams/statistics", {
       league: "71",
       season: "2023",
-      team: "127",
+      team: teamId,
     })
       .then((response) => setAllData(response.data.response))
       .catch((error) => console.log(error));
 
-    function setAllData(data) {
-      setData(data);
-      setWins(percentage(data.fixtures.wins.total, data));
-      setDraws(percentage(data.fixtures.draws.total, data));
-      setLoses(percentage(data.fixtures.loses.total, data));
+    function setAllData(d) {
+      setData(d);
+      setWins(percentage(d.fixtures.wins.total, d));
+      setDraws(percentage(d.fixtures.draws.total, d));
+      setLoses(percentage(d.fixtures.loses.total, d));
     }
-  }, []);
+  }, [teamId]);
 
   console.log("stats");
   console.log(data);
 
-  function percentage(value, data) {
-    const total = data.fixtures.played.total;
+  function percentage(value, d) {
+    const total = d.fixtures.played.total;
 
     return `${(value / total) * 100}%`;
   }
 
   return (
     <>
-      <StatsContainer>
-        <BarContainer>
-          <WinsBar style={{ width: wins }}></WinsBar>
-          <DrawsBar style={{ width: draws }}></DrawsBar>
-          <LossesBar style={{ width: loses }}></LossesBar>
-        </BarContainer>
-        <StatsInfoContainer>
-          <InfoContainer>
-            <InfoTitle>Jogos</InfoTitle>
-            <InfoValue>{data.fixtures.played.total}</InfoValue>
-          </InfoContainer>
-          <InfoContainer>
-            <InfoTitle>Vitórias</InfoTitle>
-            <InfoValue>{data.fixtures.wins.total}</InfoValue>
-          </InfoContainer>
-          <InfoContainer>
-            <InfoTitle>Empates</InfoTitle>
-            <InfoValue>{data.fixtures.draws.total}</InfoValue>
-          </InfoContainer>
-          <InfoContainer>
-            <InfoTitle>Derrotas</InfoTitle>
-            <InfoValue>{data.fixtures.loses.total}</InfoValue>
-          </InfoContainer>
-        </StatsInfoContainer>
-      </StatsContainer>
+      {data?.fixtures && (
+        <StatsContainer>
+          <BarContainer>
+            <WinsBar style={{ width: wins }}></WinsBar>
+            <DrawsBar style={{ width: draws }}></DrawsBar>
+            <LossesBar style={{ width: loses }}></LossesBar>
+          </BarContainer>
+          <StatsInfoContainer>
+            <InfoContainer>
+              <InfoTitle>Jogos</InfoTitle>
+              <InfoValue>{data.fixtures.played.total}</InfoValue>
+            </InfoContainer>
+            <InfoContainer>
+              <InfoTitle>Vitórias</InfoTitle>
+              <InfoValue>{data.fixtures.wins.total}</InfoValue>
+            </InfoContainer>
+            <InfoContainer>
+              <InfoTitle>Empates</InfoTitle>
+              <InfoValue>{data.fixtures.draws.total}</InfoValue>
+            </InfoContainer>
+            <InfoContainer>
+              <InfoTitle>Derrotas</InfoTitle>
+              <InfoValue>{data.fixtures.loses.total}</InfoValue>
+            </InfoContainer>
+          </StatsInfoContainer>
+        </StatsContainer>
+      )}
     </>
   );
 }
