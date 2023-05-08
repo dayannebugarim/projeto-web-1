@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import getData from "../../services/api";
 import {
   Container,
@@ -17,9 +17,12 @@ import {
 } from "./styles";
 import PlayerCard from "../playerCard";
 import TeamStats from "../teamStats";
+import PlayerDetails from "../playerDetails";
 
 export default function TeamDetails({ open, setOpen, data }) {
   const [playersData, setPlayersData] = useState([]);
+  const [playerId, setPlayerId] = useState("");
+  const [openDetails, setOpenDetails] = useState(false);
 
   useEffect(() => {
     getData("players", {
@@ -34,7 +37,7 @@ export default function TeamDetails({ open, setOpen, data }) {
 
   return (
     <>
-      <Container open={open}>
+      <Container open={open} openDetails={openDetails}>
         <TeamDetailsContainer>
           <TeamHeader>
             <CloseButton onClick={() => setOpen(false)}>X</CloseButton>
@@ -50,13 +53,27 @@ export default function TeamDetails({ open, setOpen, data }) {
             <Divider>Time</Divider>
             <PlayersContainer>
               {playersData.map((p, index) => (
-                <PlayerCard key={p.player.id} data={playersData[index]} />
+                <PlayerCard
+                  key={p.player.id}
+                  setPlayerId={setPlayerId}
+                  setOpenDetails={setOpenDetails}
+                  data={playersData[index]}
+                />
               ))}
             </PlayersContainer>
           </TeamContainer>
 
           <TeamStats teamId={data.team.id} />
         </TeamDetailsContainer>
+
+        {openDetails && (
+          <PlayerDetails
+            open={openDetails}
+            setOpen={setOpenDetails}
+            playerId={playerId}
+            teamId={data.team.id}
+          />
+        )}
       </Container>
     </>
   );

@@ -3,6 +3,9 @@ import MatchesCard from "./components/matchesCard";
 import TeamStats from "./components/teamStats";
 import TeamsCard from "./components/teamsCard";
 import Dashboard from "./pages/dashboard";
+import PlayerDetails from "./components/playerDetails";
+import TeamDetails from "./components/teamDetails";
+import GlobalStyles from "./styles/global";
 
 function App() {
   return (
@@ -13,7 +16,9 @@ function App() {
       <div style={{display: 'flex', justifyContent: 'space-between', gap: '1.5rem'}}>
         {/* <MatchesCard /> */}
         <TeamsCard />
+        {/* <PlayerDetails /> */}
       </div>
+      <GlobalStyles />
     </>
   );
 }

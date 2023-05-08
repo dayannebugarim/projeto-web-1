@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-export const Container = styled.ul`
-    display: ${props => props.open ? 'block' : 'none'};
+export const Container = styled.div`
+    display: ${props => props.open ? 'flex' : 'none'};
     opacity: ${props => props.open ? 1 : 0};
     z-index: 99;
     position: fixed;
@@ -61,7 +61,7 @@ export const TeamContainer = styled.li`
 
 export const Divider = styled.span``;
 
-export const PlayersContainer = styled.div`
+export const PlayersContainer = styled.ul`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
