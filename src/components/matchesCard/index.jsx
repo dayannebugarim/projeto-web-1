@@ -7,13 +7,13 @@ import {
   CardTitle,
   CardOptions,
   CardDateInput,
-  CardViewAll,
   CardBody,
   CardTitleContainer,
 } from "./styles";
 import MatchesList from "../matchesList";
+import CalendarIcon from "../../assets/icons/calendar.svg"
 
-export default function MatchesCard() {
+export default function MatchesCard({ leagueId }) {
   const today = new Date().toISOString().substring(0, 10);
   const [date, setDate] = useState(today);
   console.log(date);
@@ -23,8 +23,8 @@ export default function MatchesCard() {
       <CardContainer>
         <CardHeader>
           <CardTitleContainer>
-            <CardIcon />
-            <CardTitle>Partidas</CardTitle>
+            <CardIcon src={CalendarIcon} />
+            <CardTitle>Próximas partidas</CardTitle>
           </CardTitleContainer>
           <CardOptions>
             <CardDateInput
@@ -32,11 +32,10 @@ export default function MatchesCard() {
               type="date"
               value={date}
             />
-            <CardViewAll href="*">Ver Todas</CardViewAll>
           </CardOptions>
         </CardHeader>
         <CardBody>
-            <MatchesList date={date} />
+            <MatchesList leagueId={leagueId} date={date} />
         </CardBody>
       </CardContainer>
     </>

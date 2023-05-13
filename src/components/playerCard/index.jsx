@@ -4,7 +4,7 @@ import { PlayerContainer, PlayerImg, PlayerName } from "./styles";
 
 export default function PlayerCard({ data, setPlayerId, setOpenDetails }) {
   function setPlayerDetails() {
-    setPlayerId(data.player.id);
+    setPlayerId("1");
     setOpenDetails(true);
     console.log("clicked");
   }
@@ -12,8 +12,8 @@ export default function PlayerCard({ data, setPlayerId, setOpenDetails }) {
   return (
     <>
       <PlayerContainer onClick={() => setPlayerDetails()}>
-        <PlayerImg src={data.player.photo} />
-        <PlayerName>{data.player.name}</PlayerName>
+        <PlayerImg src="https://media-2.api-sports.io/football/players/10351.png" />
+        <PlayerName>David Duarte</PlayerName>
       </PlayerContainer>
     </>
   );

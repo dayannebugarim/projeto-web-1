@@ -10,12 +10,12 @@ import {
 } from "./styles";
 import TeamDetails from "../teamDetails";
 
-export default function TeamsList({ data }) {
+export default function TeamsList({ data, leagueId }) {
   const [open, setOpen] = useState(false);
 
   return (
     <>
-      <TeamsContainer>
+      {/* <TeamsContainer>
         <TeamContainer key={data.team.id}>
           <TeamInfoContainer>
             <TeamLogo src={data.team.logo} />
@@ -25,7 +25,19 @@ export default function TeamsList({ data }) {
         </TeamContainer>
       </TeamsContainer>
 
-      {open && <TeamDetails open={open} setOpen={setOpen} data={data} />}
+      {open && <TeamDetails open={open} setOpen={setOpen} data={data} />} */}
+
+      <TeamsContainer>
+        <TeamContainer>
+          <TeamInfoContainer>
+            <TeamLogo src="https://media-2.api-sports.io/football/teams/118.png" />
+            <TeamName>Bahia</TeamName>
+          </TeamInfoContainer>
+          <DetailsButton onClick={() => setOpen(true)}>Ver mais</DetailsButton>
+        </TeamContainer>
+      </TeamsContainer>
+
+      {open && <TeamDetails open={open} setOpen={setOpen} leagueId={leagueId} />}
     </>
   );
 }

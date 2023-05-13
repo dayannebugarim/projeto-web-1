@@ -4,15 +4,27 @@ export const Container = styled.div`
   display: ${(props) => (props.open ? "block" : "none")};
   opacity: ${(props) => (props.open ? 1 : 0)};
   z-index: 99;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  left: 0%;
   background: white;
-  width: 50vw;
-  min-height: 50vh;
-  border-radius: 6px;
-  box-shadow: 0px 2px 20px lightgray;
+  max-width: 800px;
+  padding: 3rem;
+  border-radius: 6px 6px 0px 0px;
+  box-shadow: 0px -2px 25px #B6B6B6;
+
+  animation: 0.4s ease-out 0s 1 slideToRight !important;
+
+  @keyframes slideToRight {
+    0% {
+      transform: translateX(-10%);
+      opacity: 0.3;
+    }
+
+    100% {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+  }
 `;
 
 export const PlayerDetailsContainer = styled.div`
@@ -21,7 +33,7 @@ export const PlayerDetailsContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 6%;
+  
   gap: 3rem;
 `;
 
@@ -32,11 +44,10 @@ export const HeaderContainer = styled.div`
 `;
 
 export const CloseButton = styled.button`
-  background-color: transparent;
-  border: none;
   cursor: pointer;
-  padding: 0.3rem;
-  border-radius: 6px;
+  padding: 0.8rem;
+  border: none;
+  background: none;
 `;
 
 export const PlayerImg = styled.img`

@@ -17,7 +17,7 @@ export const BarContainer = styled.div`
 `;
 
 export const WinsBar = styled.div`
-  background-color: darkblue;
+  background-color: aquamarine;
 `;
 
 export const DrawsBar = styled.div`
@@ -25,7 +25,7 @@ export const DrawsBar = styled.div`
 `;
 
 export const LossesBar = styled.div`
-  background-color: darkmagenta;
+  background-color: red;
 `;
 
 export const StatsInfoContainer = styled.div`

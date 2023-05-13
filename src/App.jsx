@@ -6,17 +6,19 @@ import Dashboard from "./pages/dashboard";
 import PlayerDetails from "./components/playerDetails";
 import TeamDetails from "./components/teamDetails";
 import GlobalStyles from "./styles/global";
+import { useState } from "react";
 
 function App() {
+  const [leagueId, setLeagueId] = useState('71');
+  console.log(leagueId);
+
   return (
     <>
       <h1>Brasileirão</h1>
-      {/* <Dashboard /> */}
-      {/* <Banner /> */}
-      <div style={{display: 'flex', justifyContent: 'space-between', gap: '1.5rem'}}>
-        {/* <MatchesCard /> */}
-        <TeamsCard />
-        {/* <PlayerDetails /> */}
+      <Banner leagueId={leagueId} setLeagueId={setLeagueId} />
+      <div className="body-container">
+        <MatchesCard leagueId={leagueId} />
+        <TeamsCard leagueId={leagueId} />
       </div>
       <GlobalStyles />
     </>
