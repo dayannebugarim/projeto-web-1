@@ -10,7 +10,7 @@ export const Container = styled.div`
   max-width: 800px;
   padding: 3rem;
   border-radius: 6px 6px 0px 0px;
-  box-shadow: 0px -2px 25px #B6B6B6;
+  box-shadow: 0px -2px 25px #b6b6b6;
 
   animation: 0.4s ease-out 0s 1 slideToRight !important;
 
@@ -33,7 +33,7 @@ export const PlayerDetailsContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
+
   gap: 3rem;
 `;
 
@@ -88,7 +88,7 @@ export const PlayerStatsContainer = styled.div`
 export const StatsCell = styled.div`
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #E3E3E3;
+  border-bottom: 1px solid #e3e3e3;
 `;
 
 export const StatsTitle = styled.span`

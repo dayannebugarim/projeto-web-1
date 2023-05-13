@@ -1,5 +1,4 @@
-import { useEffect, useState, useRef } from "react";
-import getData from "../../services/api";
+import { useState } from "react";
 import {
   TeamsContainer,
   TeamContainer,
@@ -15,7 +14,7 @@ export default function TeamsList({ data, leagueId }) {
 
   return (
     <>
-      {/* <TeamsContainer>
+      <TeamsContainer>
         <TeamContainer key={data.team.id}>
           <TeamInfoContainer>
             <TeamLogo src={data.team.logo} />
@@ -25,9 +24,16 @@ export default function TeamsList({ data, leagueId }) {
         </TeamContainer>
       </TeamsContainer>
 
-      {open && <TeamDetails open={open} setOpen={setOpen} data={data} />} */}
+      {open && (
+        <TeamDetails
+          open={open}
+          setOpen={setOpen}
+          leagueId={leagueId}
+          data={data}
+        />
+      )}
 
-      <TeamsContainer>
+      {/* <TeamsContainer>
         <TeamContainer>
           <TeamInfoContainer>
             <TeamLogo src="https://media-2.api-sports.io/football/teams/118.png" />
@@ -37,7 +43,7 @@ export default function TeamsList({ data, leagueId }) {
         </TeamContainer>
       </TeamsContainer>
 
-      {open && <TeamDetails open={open} setOpen={setOpen} leagueId={leagueId} />}
+      {open && <TeamDetails open={open} setOpen={setOpen} leagueId={leagueId} />} */}
     </>
   );
 }

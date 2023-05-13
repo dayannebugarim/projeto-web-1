@@ -102,8 +102,8 @@ export const EventType = styled.span`
   font-size: 0.8rem;
   padding: 0.3rem;
   border-radius: 50px;
-  color: #F9C94E;
-  background-color: #F2E5C4;
+  color: #f9c94e;
+  background-color: #f2e5c4;
   font-weight: 500;
 `;
 
