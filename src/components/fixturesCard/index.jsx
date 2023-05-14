@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import getData from "../../services/api";
+import { useState } from "react";
 import {
   CardContainer,
   CardHeader,
@@ -10,13 +9,12 @@ import {
   CardBody,
   CardTitleContainer,
 } from "./styles";
-import MatchesList from "../matchesList";
-import CalendarIcon from "../../assets/icons/calendar.svg"
+import FixturesList from "../fixturesList";
+import CalendarIcon from "../../assets/icons/calendar.svg";
 
-export default function MatchesCard({ leagueId }) {
+export default function FixturesCard({ leagueId }) {
   const today = new Date().toISOString().substring(0, 10);
   const [date, setDate] = useState(today);
-  console.log(date);
 
   return (
     <>
@@ -35,7 +33,7 @@ export default function MatchesCard({ leagueId }) {
           </CardOptions>
         </CardHeader>
         <CardBody>
-            <MatchesList leagueId={leagueId} date={date} />
+          <FixturesList leagueId={leagueId} date={date} />
         </CardBody>
       </CardContainer>
     </>

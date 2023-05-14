@@ -1,11 +1,11 @@
-import { useEffect, useState, useRef } from "react";
-import getData from "../../services/api";
+import { useEffect, useState } from "react";
+import { getFixturesByDate, getNextFixtures } from "../../services/api";
 import {
-  MatchesContainer,
-  MatchContainer,
+  FixturesContainer,
+  FixtureContainer,
   DateContainer,
-  MatchTime,
-  MatchDate,
+  FixtureTime,
+  FixtureDate,
   InfoContainer,
   LeagueContainer,
   LeagueLogo,
@@ -17,61 +17,48 @@ import {
   TeamLogo,
 } from "./styles";
 
-export default function MatchesList({ leagueId, date }) {
-  // const [data, setData] = useState([]);
-  // const shouldFetch = useRef(true);
+export default function FixturesList({ leagueId, date }) {
+  const [data, setData] = useState([]);
+  const [shouldFetch, setShouldFetch] = useState(true);
 
-  // useEffect(() => {
-  //   if (shouldFetch) {
-  //     getData("fixtures", {
-  //       next: "6",
-  //       league: leagueId,
-  //       timezone: "America/Fortaleza",
-  //     })
-  //       .then((response) => {
-  //         setData(response.data.response.slice(1));
-  //         shouldFetch.current = false;
-  //       })
-  //       .catch((error) => console.log(error));
-  //   } else {
-  //     getData("fixtures", {
-  //       date: date,
-  //       league: leagueId,
-  //       season: "2023",
-  //       timezone: "America/Fortaleza",
-  //     })
-  //       .then((response) => setData(response.data.response))
-  //       .catch((error) => console.log(error));
-  //   }
-  // }, [leagueId, date]);
-  // console.log(data);
+  useEffect(() => {
+    if (shouldFetch) {
+      getNextFixtures("7", leagueId)
+        .then((response) => {
+          setData(response.data.response.slice(1));
+          setShouldFetch(false);
+        })
+        .catch((error) => console.log(error));
+    } else {
+      getFixturesByDate(date, leagueId)
+        .then((response) => setData(response.data.response))
+        .catch((error) => console.log(error));
+    }
+  }, [leagueId, date, shouldFetch]);
 
-  // function formatDate(matchDate) {
-  //   const today = new Date();
-  //   if (new Date(matchDate) === today) {
-  //     return "Hoje";
-  //   }
-  //   return new Date(matchDate).toLocaleDateString("pt-BR");
-  // }
+  const formatDate = (fixtureDate) => {
+    const today = new Date();
+    if (new Date(fixtureDate) === today) {
+      return "Hoje";
+    }
+    return new Date(fixtureDate).toLocaleDateString("pt-BR");
+  };
 
-  // function formatTime(matchDate) {
-  //   return new Date(matchDate)
-  //     .toLocaleTimeString("pt-BR")
-  //     .slice(0, 5)
-  //     .replace(":", "h");
-  // }
-
-  // console.log(formatDate("2023-05-06T16:00:00-03:00"));
-  // console.log(formatTime("2023-05-06T16:00:00-03:00"));
+  const formatTime = (fixtureDate) => {
+    return new Date(fixtureDate)
+      .toLocaleTimeString("pt-BR")
+      .slice(0, 5)
+      .replace(":", "h");
+  };
 
   return (
     <>
-      {/* <MatchesContainer>
+      <FixturesContainer>
         {data.map((f) => (
-          <MatchContainer key={f.fixture.id}>
+          <FixtureContainer key={f.fixture.id}>
             <DateContainer>
-              <MatchDate>{formatDate(f.fixture.date)}</MatchDate>
-              <MatchTime>{formatTime(f.fixture.date)}</MatchTime>
+              <FixtureDate>{formatDate(f.fixture.date)}</FixtureDate>
+              <FixtureTime>{formatTime(f.fixture.date)}</FixtureTime>
             </DateContainer>
             <InfoContainer>
               <LeagueContainer>
@@ -81,28 +68,34 @@ export default function MatchesList({ leagueId, date }) {
               <TeamsContainer>
                 <TeamContainer>
                   <TeamName>{f.teams.away.name}</TeamName>
-                  <TeamLogo src={f.teams.away.logo} />
+                  <TeamLogoContainer>
+                    <TeamLogo src={f.teams.away.logo} />
+                  </TeamLogoContainer>
                 </TeamContainer>
                 <p>VS</p>
                 <TeamContainer>
-                  <TeamLogo src={f.teams.home.logo} />
+                  <TeamLogoContainer>
+                    <TeamLogo src={f.teams.home.logo} />
+                  </TeamLogoContainer>
                   <TeamName>{f.teams.home.name}</TeamName>
                 </TeamContainer>
               </TeamsContainer>
             </InfoContainer>
-          </MatchContainer>
+          </FixtureContainer>
         ))}
-      </MatchesContainer> */}
+      </FixturesContainer>
 
-      <MatchesContainer>
-      <MatchContainer>
+      {/* <FixturesContainer>
+        <FixtureContainer>
           <DateContainer>
-            <MatchDate>13/05/2023</MatchDate>
-            <MatchTime>18h30</MatchTime>
+            <FixtureDate>13/05/2023</FixtureDate>
+            <FixtureTime>18h30</FixtureTime>
           </DateContainer>
           <InfoContainer>
             <LeagueContainer>
-              <LeagueLogo src={`https://media-3.api-sports.io/football/leagues/${leagueId}.png`} />
+              <LeagueLogo
+                src={`https://media-3.api-sports.io/football/leagues/${leagueId}.png`}
+              />
               <LeagueName>Série A - {leagueId}</LeagueName>
             </LeagueContainer>
             <TeamsContainer>
@@ -121,12 +114,12 @@ export default function MatchesList({ leagueId, date }) {
               </TeamContainer>
             </TeamsContainer>
           </InfoContainer>
-        </MatchContainer>
+        </FixtureContainer>
 
-        <MatchContainer>
+        <FixtureContainer>
           <DateContainer>
-            <MatchDate>13/05/2023</MatchDate>
-            <MatchTime>18h30</MatchTime>
+            <FixtureDate>13/05/2023</FixtureDate>
+            <FixtureTime>18h30</FixtureTime>
           </DateContainer>
           <InfoContainer>
             <LeagueContainer>
@@ -149,12 +142,12 @@ export default function MatchesList({ leagueId, date }) {
               </TeamContainer>
             </TeamsContainer>
           </InfoContainer>
-        </MatchContainer>
+        </FixtureContainer>
 
-        <MatchContainer>
+        <FixtureContainer>
           <DateContainer>
-            <MatchDate>13/05/2023</MatchDate>
-            <MatchTime>18h30</MatchTime>
+            <FixtureDate>13/05/2023</FixtureDate>
+            <FixtureTime>18h30</FixtureTime>
           </DateContainer>
           <InfoContainer>
             <LeagueContainer>
@@ -177,12 +170,12 @@ export default function MatchesList({ leagueId, date }) {
               </TeamContainer>
             </TeamsContainer>
           </InfoContainer>
-        </MatchContainer>
+        </FixtureContainer>
 
-        <MatchContainer>
+        <FixtureContainer>
           <DateContainer>
-            <MatchDate>13/05/2023</MatchDate>
-            <MatchTime>18h30</MatchTime>
+            <FixtureDate>13/05/2023</FixtureDate>
+            <FixtureTime>18h30</FixtureTime>
           </DateContainer>
           <InfoContainer>
             <LeagueContainer>
@@ -205,12 +198,12 @@ export default function MatchesList({ leagueId, date }) {
               </TeamContainer>
             </TeamsContainer>
           </InfoContainer>
-        </MatchContainer>
+        </FixtureContainer>
 
-        <MatchContainer>
+        <FixtureContainer>
           <DateContainer>
-            <MatchDate>13/05/2023</MatchDate>
-            <MatchTime>18h30</MatchTime>
+            <FixtureDate>13/05/2023</FixtureDate>
+            <FixtureTime>18h30</FixtureTime>
           </DateContainer>
           <InfoContainer>
             <LeagueContainer>
@@ -233,12 +226,12 @@ export default function MatchesList({ leagueId, date }) {
               </TeamContainer>
             </TeamsContainer>
           </InfoContainer>
-        </MatchContainer>
+        </FixtureContainer>
 
-        <MatchContainer>
+        <FixtureContainer>
           <DateContainer>
-            <MatchDate>13/05/2023</MatchDate>
-            <MatchTime>18h30</MatchTime>
+            <FixtureDate>13/05/2023</FixtureDate>
+            <FixtureTime>18h30</FixtureTime>
           </DateContainer>
           <InfoContainer>
             <LeagueContainer>
@@ -261,8 +254,8 @@ export default function MatchesList({ leagueId, date }) {
               </TeamContainer>
             </TeamsContainer>
           </InfoContainer>
-        </MatchContainer>
-      </MatchesContainer>
+        </FixtureContainer> 
+      </FixturesContainer> */}
     </>
   );
 }

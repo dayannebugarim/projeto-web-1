@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef } from "react";
-import getData from "../../services/api";
+import { useEffect, useState } from "react";
+import { getPlayerByTeam } from "../../services/api";
 import ArrowBackIcon from "../../assets/icons/arrow-left.svg";
 import {
   Container,
@@ -18,37 +18,31 @@ import {
   StatsTitle,
   StatsValue,
 } from "./styles";
+import { playerPosition } from "../../utils/enums";
 
-const positions = {
-  Goalkeeper: "Goleiro",
-  Defender: "Defesa",
-  Attacker: "Ataque",
-  Midfielder: "Meio-campo",
-};
+export default function PlayerDetails({
+  open,
+  setOpen,
+  playerId,
+  teamId,
+  leagueId,
+}) {
+  const [data, setData] = useState([]);
 
-export default function PlayerDetails({ open, setOpen, playerId, teamId }) {
-  // const [data, setData] = useState([]);
-
-  // useEffect(() => {
-  //   getData("players", {
-  //     id: playerId,
-  //     team: teamId,
-  //     league: "71",
-  //     season: "2023",
-  //   })
-  //     .then((response) => setData(response.data.response[0]))
-  //     .catch((error) => console.log(error));
-  // }, [playerId, teamId]);
-  // console.log(data);
+  useEffect(() => {
+    getPlayerByTeam(playerId, teamId, leagueId)
+      .then((response) => setData(response.data.response[0]))
+      .catch((error) => console.log(error));
+  }, [playerId, teamId, leagueId]);
 
   return (
     <>
-      {/* {data?.player && (
+      {data?.player && (
         <Container open={open}>
           <PlayerDetailsContainer>
             <HeaderContainer>
               <CloseButton onClick={() => setOpen(false)}>
-                <img src={ArrowBack} alt="" />
+                <img src={ArrowBackIcon} alt="" />
               </CloseButton>
               <PlayerImg src={data.player.photo} />
               <InfoContainer>
@@ -61,7 +55,7 @@ export default function PlayerDetails({ open, setOpen, playerId, teamId }) {
                   <DescriptionContainer>
                     <DescriptionTitle>Posição</DescriptionTitle>
                     <DescriptionValue>
-                      {positions[data.statistics[0].games.position]}
+                      {playerPosition[data.statistics[0].games.position]}
                     </DescriptionValue>
                   </DescriptionContainer>
                 </DescriptionsContainer>
@@ -93,9 +87,9 @@ export default function PlayerDetails({ open, setOpen, playerId, teamId }) {
             </PlayerStatsContainer>
           </PlayerDetailsContainer>
         </Container>
-      )} */}
+      )}
 
-      <Container open={open}>
+      {/* <Container open={open}>
         <PlayerDetailsContainer>
           <HeaderContainer>
             <CloseButton onClick={() => setOpen(false)}>
@@ -135,7 +129,7 @@ export default function PlayerDetails({ open, setOpen, playerId, teamId }) {
             </StatsCell>
           </PlayerStatsContainer>
         </PlayerDetailsContainer>
-      </Container>
+      </Container> */}
     </>
   );
 }

@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import getData from "../../services/api";
+import { useEffect, useState } from "react";
+import { getTeamStatsByLeague } from "../../services/api";
 import {
   StatsContainer,
   BarContainer,
@@ -7,46 +7,40 @@ import {
   DrawsBar,
   LossesBar,
   StatsInfoContainer,
+  InfoContainerWithBorder,
   InfoContainer,
   InfoTitle,
   InfoValue,
 } from "./styles";
 
-export default function TeamStats({ teamId }) {
-  // const [data, setData] = useState([]);
-  // const [wins, setWins] = useState("0");
-  // const [draws, setDraws] = useState("0");
-  // const [loses, setLoses] = useState("0");
+export default function TeamStats({ teamId, leagueId }) {
+  const [data, setData] = useState([]);
+  const [wins, setWins] = useState("0");
+  const [draws, setDraws] = useState("0");
+  const [loses, setLoses] = useState("0");
 
-  // useEffect(() => {
-  //   getData("teams/statistics", {
-  //     league: "71",
-  //     season: "2023",
-  //     team: teamId,
-  //   })
-  //     .then((response) => setAllData(response.data.response))
-  //     .catch((error) => console.log(error));
+  useEffect(() => {
+    getTeamStatsByLeague(leagueId, teamId)
+      .then((response) => setAllData(response.data.response))
+      .catch((error) => console.log(error));
 
-  //   function setAllData(d) {
-  //     setData(d);
-  //     setWins(percentage(d.fixtures.wins.total, d));
-  //     setDraws(percentage(d.fixtures.draws.total, d));
-  //     setLoses(percentage(d.fixtures.loses.total, d));
-  //   }
-  // }, [teamId]);
+    const setAllData = (d) => {
+      setData(d);
+      setWins(percentage(d.fixtures.wins.total, d));
+      setDraws(percentage(d.fixtures.draws.total, d));
+      setLoses(percentage(d.fixtures.loses.total, d));
+    };
+  }, [teamId, leagueId]);
 
-  // console.log("stats");
-  // console.log(data);
+  const percentage = (value, d) => {
+    const total = d.fixtures.played.total;
 
-  // function percentage(value, d) {
-  //   const total = d.fixtures.played.total;
-
-  //   return `${(value / total) * 100}%`;
-  // }
+    return `${(value / total) * 100}%`;
+  };
 
   return (
     <>
-      {/* {data?.fixtures && (
+      {data?.fixtures && (
         <StatsContainer>
           <BarContainer>
             <WinsBar style={{ width: wins }}></WinsBar>
@@ -72,19 +66,19 @@ export default function TeamStats({ teamId }) {
             </InfoContainer>
           </StatsInfoContainer>
         </StatsContainer>
-      )} */}
+      )}
 
-      <StatsContainer>
+      {/* <StatsContainer>
         <BarContainer>
           <WinsBar style={{ width: "30%" }}></WinsBar>
           <DrawsBar style={{ width: "10%" }}></DrawsBar>
           <LossesBar style={{ width: "60%" }}></LossesBar>
         </BarContainer>
         <StatsInfoContainer>
-          <InfoContainer>
-            <InfoTitle>Jogos</InfoTitle>
+          <InfoContainerWithBorder>
+            <InfoTitle>Partidas</InfoTitle>
             <InfoValue>5</InfoValue>
-          </InfoContainer>
+          </InfoContainerWithBorder>
           <InfoContainer>
             <InfoTitle>Vitórias</InfoTitle>
             <InfoValue>2</InfoValue>
@@ -98,7 +92,7 @@ export default function TeamStats({ teamId }) {
             <InfoValue>3</InfoValue>
           </InfoContainer>
         </StatsInfoContainer>
-      </StatsContainer>
+      </StatsContainer> */}
     </>
   );
 }

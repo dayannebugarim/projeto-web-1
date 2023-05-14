@@ -1,11 +1,8 @@
 import { useEffect, useState, useRef } from "react";
-import getData from "../../services/api";
+import { getLiveFixtures, getNextFixtures } from "../../services/api";
 import {
   BannerContainer,
   BannerHeader,
-  LeagueContainer,
-  LeagueLogo,
-  LeagueName,
   BannerBody,
   TeamsContainer,
   EventContainer,
@@ -28,6 +25,7 @@ import SoccerBallIcon from "../../assets/icons/soccer-ball.svg";
 import ClockIcon from "../../assets/icons/clock.svg";
 import StadiumIcon from "../../assets/icons/stadium.svg";
 import WhistleIcon from "../../assets/icons/whistle.svg";
+import { eventType } from "../../utils/enums";
 
 export default function Banner({ leagueId, setLeagueId }) {
   const eventContainer1El = useRef();
@@ -35,101 +33,112 @@ export default function Banner({ leagueId, setLeagueId }) {
 
   const eventContainer2El = useRef();
   const [eventContainer2Width, setEventContainer2Width] = useState(0);
-  // const [data, setData] = useState([]);
-  // const [matchStatus, setMatchStatus] = useState("");
-  // const [homeGoalsInfo, setHomeGoalsInfo] = useState([]);
-  // const [awayGoalsInfo, setAwayGoalsInfo] = useState([]);
+
+  const [data, setData] = useState([]);
+  const [fixtureStatus, setFixtureStatus] = useState("");
+  const [homeGoalsInfo, setHomeGoalsInfo] = useState([]);
+  const [awayGoalsInfo, setAwayGoalsInfo] = useState([]);
 
   useEffect(() => {
-    setEventContainer1Width(eventContainer1El.current.offsetWidth);
-    setEventContainer2Width(eventContainer2El.current.offsetWidth);
+    setEventContainer1Width(eventContainer1El.current?.offsetWidth);
+    setEventContainer2Width(eventContainer2El.current?.offsetWidth);
 
-    //   getData("fixtures", {
-    //     live: "all",
-    //     league: "71",
-    //     timezone: "America/Fortaleza",
-    //   })
-    //     .then((response) => {
-    //       if (response.data.response.length !== 0) {
-    //         setAllData(response.data.response[0]);
-    //       } else {
-    //         getData("fixtures", {
-    //           league: "71",
-    //           next: "1",
-    //           timezone: "America/Fortaleza",
-    //         })
-    //           .then((response) => setAllData(response.data.response[0]))
-    //           .catch((error) => console.log(error));
-    //       }
-    //     })
-    //     .catch((error) => console.log(error));
+    getLiveFixtures(leagueId)
+      .then((response) => {
+        if (response.data.response.length !== 0) {
+          setAllData(response.data.response[0]);
+        } else {
+          getNextFixtures("1", leagueId)
+            .then((response) => setAllData(response.data.response[0]))
+            .catch((error) => console.log(error));
+        }
+      })
+      .catch((error) => console.log(error));
 
-    //   function setAllData(data) {
-    //     setData([data]);
-    //     setMatchStatus(data.fixture.status.short);
-    //     setHomeGoalsInfo(goalsInfo(data.teams.home.name, data));
-    //     setAwayGoalsInfo(goalsInfo(data.teams.away.name, data));
-    //   }
-  }, []);
-  // console.log(data);
+    const setAllData = (data) => {
+      setData([data]);
+      setFixtureStatus(data.fixture.status.short);
+      setHomeGoalsInfo(goalsInfo(data.teams.home.name, data));
+      setAwayGoalsInfo(goalsInfo(data.teams.away.name, data));
+    };
+  }, [leagueId]);
 
-  // function goalsInfo(team, data) {
-  //   return data.events.filter((e) => e.type === "Goal" && e.team.name === team);
-  // }
+  const goalsInfo = (team, data) => {
+    return data.events?.filter(
+      (e) => e.type === "Goal" && e.team.name === team
+    );
+  };
 
-  // function formatDate(matchDate) {
-  //   return new Date(matchDate).toLocaleDateString("pt-BR");
-  // }
+  const formatDate = (fixtureDate) => {
+    return new Date(fixtureDate).toLocaleDateString("pt-BR");
+  };
 
-  // function formatTime(matchDate) {
-  //   return new Date(matchDate)
-  //     .toLocaleTimeString("pt-BR")
-  //     .slice(0, 5)
-  //     .replace(":", "h");
-  // }
+  const formatTime = (fixtureDate) => {
+    return new Date(fixtureDate)
+      .toLocaleTimeString("pt-BR")
+      .slice(0, 5)
+      .replace(":", "h");
+  };
 
   return (
     <>
-      {/* {data.map((d, key) => (
+      {data.map((d, key) => (
         <BannerContainer key={key}>
           <BannerHeader>
-            <LeagueContainer>
-              <LeagueLogo src={d.league.logo} />
-              <LeagueName>{d.league.name}</LeagueName>
-            </LeagueContainer>
+            <select onChange={(e) => setLeagueId(e.currentTarget.value)}>
+              <option value="71">Série A</option>
+              <option value="72">Série B</option>
+              <option value="75">Série C</option>
+              <option value="76">Série D</option>
+              <option value="73">Copa Do Brasil</option>
+            </select>
           </BannerHeader>
           <BannerBody>
             <TeamsContainer>
-              <EventContainer>
-                {matchStatus !== "NS" &&
+              <EventContainer
+                ref={eventContainer1El}
+                width={
+                  Math.max(eventContainer1Width, eventContainer2Width) + "px"
+                }
+              >
+                {fixtureStatus !== "NS" &&
                   homeGoalsInfo.map((e, key) => (
                     <EventInfoContainer key={key}>
                       <PlayerName>{e.player.name}</PlayerName>
-                      <EventIcon src="https://picsum.photos/16" />
+                      <EventIcon src={SoccerBallIcon} />
                     </EventInfoContainer>
                   ))}
               </EventContainer>
               <TeamContainer>
                 <TeamName>{d.teams.home.name}</TeamName>
-                <TeamLogo src={d.teams.home.logo} />
+                <TeamLogoContainer>
+                  <TeamLogo src={d.teams.home.logo} />
+                </TeamLogoContainer>
               </TeamContainer>
               <ScoreValuesContainer>
                 <ScoreValues>
-                  {matchStatus !== "NS"
+                  {fixtureStatus !== "NS"
                     ? `${d.goals.home} - ${d.goals.away}`
                     : "VS"}
                 </ScoreValues>
-                {matchStatus !== "NS" && (
-                  <EventType>{d.fixture.status.long}</EventType>
+                {fixtureStatus !== "NS" && (
+                  <EventType>{eventType[d.fixture.status.short]}</EventType>
                 )}
               </ScoreValuesContainer>
               <TeamContainer>
-                <TeamLogo src={d.teams.away.logo} />
+                <TeamLogoContainer>
+                  <TeamLogo src={d.teams.away.logo} />
+                </TeamLogoContainer>
                 <TeamName>{d.teams.away.name}</TeamName>
               </TeamContainer>
             </TeamsContainer>
-            <EventContainer>
-              {matchStatus !== "NS" &&
+            <EventContainer
+              ref={eventContainer2El}
+              width={
+                Math.max(eventContainer1Width, eventContainer2Width) + "px"
+              }
+            >
+              {fixtureStatus !== "NS" &&
                 awayGoalsInfo.map((e, key) => (
                   <EventInfoContainer key={key}>
                     <PlayerName>{e.player.name}</PlayerName>
@@ -140,26 +149,27 @@ export default function Banner({ leagueId, setLeagueId }) {
           </BannerBody>
           <BannerFooter>
             <FooterContainer>
-              <FooterIcon src="https://picsum.photos/16" />
+              <FooterIcon src={ClockIcon} />
               <FooterSpan>
                 {formatDate(d.fixture.date)} - {formatTime(d.fixture.date)}
               </FooterSpan>
             </FooterContainer>
             <FooterContainer>
-              <FooterIcon src="https://picsum.photos/16" />
+              <FooterIcon src={StadiumIcon} />
               <FooterSpan>
-                {d.fixture.venue.name}, {d.fixture.venue.city.split(",")[0]}
+                {d.fixture.venue.name || "-"},{" "}
+                {d.fixture.venue.city.split(",")[0] || "-"}
               </FooterSpan>
             </FooterContainer>
             <FooterContainer>
-              <FooterIcon src="https://picsum.photos/16" />
-              <FooterSpan>{d.fixture.referee}</FooterSpan>
+              <FooterIcon src={WhistleIcon} />
+              <FooterSpan>{d.fixture.referee || "-"}</FooterSpan>
             </FooterContainer>
           </BannerFooter>
         </BannerContainer>
-      ))} */}
+      ))}
 
-      <BannerContainer>
+      {/* <BannerContainer>
         <BannerHeader>
           <select onChange={(e) => setLeagueId(e.currentTarget.value)}>
             <option value="71">Série A</option>
@@ -168,10 +178,10 @@ export default function Banner({ leagueId, setLeagueId }) {
             <option value="75">Série C</option>
             <option value="76">Série D</option>
           </select>
-          {/* <LeagueContainer>
+          <LeagueContainer>
             <LeagueLogo src="https://media-1.api-sports.io/football/leagues/71.png" />
             <LeagueName>Série A</LeagueName>
-          </LeagueContainer> */}
+          </LeagueContainer>
         </BannerHeader>
         <BannerBody>
           <TeamsContainer>
@@ -230,7 +240,7 @@ export default function Banner({ leagueId, setLeagueId }) {
             <FooterSpan>Anderson Daronco, Brazil</FooterSpan>
           </FooterContainer>
         </BannerFooter>
-      </BannerContainer>
+      </BannerContainer> */}
     </>
   );
 }
