@@ -4,18 +4,21 @@ export const FixturesContainer = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  max-height: 800px;
+  overflow-y: scroll;
 `;
 
 export const FixtureContainer = styled.li`
   display: flex;
   gap: 1.5rem;
-  background-color: white;
+  background-color: #2b383e;
   padding: 1rem;
-  border-bottom: 2px solid aliceblue;
+  border-bottom: 2px solid #2b383e;
+  border-radius: 6px;
 `;
 
 export const DateContainer = styled.div`
-  border-left: 3px solid aquamarine;
+  border-left: 3px solid #30c3a2;
   border-radius: 2px;
   display: flex;
   gap: 0.5rem;
@@ -23,6 +26,7 @@ export const DateContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding: 0.5rem;
+  color: #d4d4d4;
 `;
 
 export const FixtureTime = styled.span``;
@@ -35,7 +39,7 @@ export const InfoContainer = styled.div`
   flex-direction: column;
   gap: 0.5rem;
   border-radius: 6px;
-  background-color: #e8e8e8;
+  background-color: #384348;
   padding: 0.5rem;
   width: 100%;
 `;
@@ -61,7 +65,7 @@ export const TeamsContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  border-top: 1px solid white;
+  border-top: 1px solid #2b383e;
   padding: 1rem 0;
 `;
 
@@ -72,7 +76,9 @@ export const TeamContainer = styled.div`
   gap: 0.5rem;
 `;
 
-export const TeamName = styled.h3``;
+export const TeamName = styled.h3`
+  font-weight: 500;
+`;
 
 export const TeamLogoContainer = styled.div`
   background-color: white;

@@ -2,14 +2,13 @@ import styled from "styled-components";
 
 export const CardContainer = styled.div`
   border-radius: 6px;
-  background-color: aliceblue;
-  border: 6px solid aliceblue;
+  background-color: #17232c;
   width: 70%;
 `;
 
 export const CardHeader = styled.div`
   display: flex;
-  padding: 0.5rem;
+  padding: 0.5rem 0rem;
   justify-content: space-between;
   align-items: center;
 `;
@@ -36,6 +35,4 @@ export const CardDateInput = styled.input``;
 
 export const CardViewAll = styled.a``;
 
-export const CardBody = styled.div`
-  background-color: white;
-`;
+export const CardBody = styled.div``;
