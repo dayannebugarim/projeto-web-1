@@ -3,12 +3,13 @@ import styled from "styled-components";
 export const BannerContainer = styled.div`
   display: flex;
   justify-content: center;
-  background-color: aquamarine;
+  background-color: #30C3A2;
   padding: 1.5rem;
   border-radius: 6px;
   /* border: 1px solid red; */
   flex-direction: column;
   gap: 1rem;
+  color: #17232C;
 `;
 
 export const BannerHeader = styled.div`
@@ -55,11 +56,14 @@ export const EventInfoContainer = styled.div`
   display: flex;
   justify-content: end;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
   /* border: 1px solid red; */
 `;
 
-export const PlayerName = styled.span``;
+export const PlayerName = styled.span`
+ color: #2B383E;
+ font-size: 0.95rem;
+`;
 
 export const EventIcon = styled.img`
   max-width: 20px;
@@ -72,7 +76,9 @@ export const TeamContainer = styled.div`
   /* border: 1px solid red; */
 `;
 
-export const TeamName = styled.h2``;
+export const TeamName = styled.h2`
+  font-weight: 500;
+`;
 
 export const TeamLogoContainer = styled.div`
   background-color: white;
@@ -95,16 +101,15 @@ export const ScoreValuesContainer = styled.div`
 
 export const ScoreValues = styled.span`
   font-size: 2rem;
-  font-weight: 500;
+  font-weight: 600;
 `;
 
 export const EventType = styled.span`
   font-size: 0.8rem;
-  padding: 0.3rem;
+  padding: 0.3rem 0.5rem;
   border-radius: 50px;
-  color: #F9C94E;
-  background-color: #F2E5C4;
-  font-weight: 500;
+  color: #fff;
+  background-color: #17232C;
 `;
 
 export const BannerFooter = styled.div`
@@ -112,6 +117,8 @@ export const BannerFooter = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #2FAC90;
 `;
 
 export const FooterContainer = styled.div`
@@ -125,6 +132,6 @@ export const FooterIcon = styled.img`
 `;
 
 export const FooterSpan = styled.span`
-  color: gray;
+  color: #226254;
   font-size: 0.8rem;
 `;

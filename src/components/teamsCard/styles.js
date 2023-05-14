@@ -2,14 +2,13 @@ import styled from "styled-components";
 
 export const CardContainer = styled.div`
   border-radius: 6px;
-  background-color: aliceblue;
-  border: 6px solid aliceblue;
+  background-color: #17232c;
   width: 30%;
 `;
 
 export const CardHeader = styled.div`
   display: flex;
-  padding: 0.5rem;
+  padding: 0.5rem 0rem;
   justify-content: space-between;
   align-items: center;
 `;
@@ -20,9 +19,14 @@ export const CardTitleContainer = styled.div`
   gap: 0.5rem;
 `;
 
-export const CardIcon = styled.img``;
+export const CardIcon = styled.img`
+  color: #fff;
+`;
 
-export const CardTitle = styled.h3``;
+export const CardTitle = styled.span`
+  font-size: 1.1rem;
+  font-weight: 500;
+`;
 
 export const CardOptions = styled.div`
   display: flex;
@@ -34,5 +38,9 @@ export const CardDateInput = styled.input``;
 export const CardViewAll = styled.a``;
 
 export const CardBody = styled.div`
-  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 800px;
+  overflow-y: scroll;
 `;
