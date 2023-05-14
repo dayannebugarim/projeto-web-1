@@ -9,7 +9,7 @@ import {
   CardTitleContainer,
 } from "./styles";
 import TeamsList from "../teamsList";
-import SoccerBallIcon from "../../assets/icons/soccer-ball.svg";
+import WhiteSoccerBallIcon from "../../assets/icons/soccer-ball-white.svg";
 
 export default function TeamsCard({ leagueId }) {
   // let teste = [];
@@ -30,7 +30,7 @@ export default function TeamsCard({ leagueId }) {
       <CardContainer>
         <CardHeader>
           <CardTitleContainer>
-            <CardIcon src={SoccerBallIcon} />
+            <CardIcon src={WhiteSoccerBallIcon} />
             <CardTitle>Times</CardTitle>
           </CardTitleContainer>
         </CardHeader>
@@ -44,7 +44,7 @@ export default function TeamsCard({ leagueId }) {
       {/* <CardContainer>
         <CardHeader>
           <CardTitleContainer>
-            <CardIcon src={SoccerBallIcon} />
+            <CardIcon src={WhiteSoccerBallIcon} />
             <CardTitle>Times</CardTitle>
           </CardTitleContainer>
         </CardHeader>

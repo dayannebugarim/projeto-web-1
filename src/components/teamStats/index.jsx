@@ -7,6 +7,7 @@ import {
   DrawsBar,
   LossesBar,
   StatsInfoContainer,
+  InfoContainerWithBorder,
   InfoContainer,
   InfoTitle,
   InfoValue,
@@ -74,10 +75,10 @@ export default function TeamStats({ teamId, leagueId }) {
           <LossesBar style={{ width: "60%" }}></LossesBar>
         </BarContainer>
         <StatsInfoContainer>
-          <InfoContainer>
-            <InfoTitle>Jogos</InfoTitle>
+          <InfoContainerWithBorder>
+            <InfoTitle>Partidas</InfoTitle>
             <InfoValue>5</InfoValue>
-          </InfoContainer>
+          </InfoContainerWithBorder>
           <InfoContainer>
             <InfoTitle>Vitórias</InfoTitle>
             <InfoValue>2</InfoValue>

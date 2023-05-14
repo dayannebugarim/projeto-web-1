@@ -3,6 +3,7 @@ import {
   TeamsContainer,
   TeamContainer,
   TeamInfoContainer,
+  TeamLogoContainer,
   TeamLogo,
   TeamName,
   DetailsButton,
@@ -36,7 +37,9 @@ export default function TeamsList({ data, leagueId }) {
       {/* <TeamsContainer>
         <TeamContainer>
           <TeamInfoContainer>
-            <TeamLogo src="https://media-2.api-sports.io/football/teams/118.png" />
+            <TeamLogoContainer>
+              <TeamLogo src="https://media-2.api-sports.io/football/teams/118.png" />
+            </TeamLogoContainer>
             <TeamName>Bahia</TeamName>
           </TeamInfoContainer>
           <DetailsButton onClick={() => setOpen(true)}>Ver mais</DetailsButton>

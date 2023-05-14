@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const CardContainer = styled.div`
   border-radius: 6px;
   background-color: #17232c;
-  width: 30%;
+  width: 70%;
 `;
 
 export const CardHeader = styled.div`
@@ -19,9 +19,7 @@ export const CardTitleContainer = styled.div`
   gap: 0.5rem;
 `;
 
-export const CardIcon = styled.img`
-  color: #fff;
-`;
+export const CardIcon = styled.img``;
 
 export const CardTitle = styled.span`
   font-size: 1.1rem;
@@ -37,10 +35,4 @@ export const CardDateInput = styled.input``;
 
 export const CardViewAll = styled.a``;
 
-export const CardBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-height: 800px;
-  overflow-y: scroll;
-`;
+export const CardBody = styled.div``;

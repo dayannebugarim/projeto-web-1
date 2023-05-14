@@ -8,6 +8,7 @@ import {
   CloseButton,
   TeamLogoContainer,
   TeamLogo,
+  TeamInfoContainer,
   TeamName,
   TeamFoundation,
   LeagueContainer,
@@ -16,12 +17,13 @@ import {
   TeamContainer,
   Divider,
   PlayersContainer,
+  StatsContainer,
 } from "./styles";
 import PlayerCard from "../playerCard";
 import TeamStats from "../teamStats";
 import PlayerDetails from "../playerDetails";
 import ArrowLeftIcon from "../../assets/icons/arrow-left.svg";
-import { leagueName } from "../../utils/dataTypes";
+import { leagueName } from "../../utils/enums";
 
 export default function TeamDetails({ open, setOpen, data, leagueId }) {
   const [playersData, setPlayersData] = useState([]);
@@ -95,15 +97,17 @@ export default function TeamDetails({ open, setOpen, data, leagueId }) {
               <TeamLogoContainer>
                 <TeamLogo src="https://media-2.api-sports.io/football/teams/118.png" />
               </TeamLogoContainer>
-              <TeamName>Bahia</TeamName>
-              <TeamFoundation>1931</TeamFoundation>
+              <TeamInfoContainer>
+                <TeamName>Bahia</TeamName>
+                {/* <TeamFoundation>1931</TeamFoundation> 
+                <LeagueContainer>
+                  <LeagueLogo
+                    src={`https://media-3.api-sports.io/football/leagues/${leagueId}.png`}
+                  />
+                  <LeagueName>{leagueName[leagueId]}</LeagueName>
+                </LeagueContainer>
+              </TeamInfoContainer>
             </TeamHeader>
-            <LeagueContainer>
-              <LeagueLogo
-                src={`https://media-3.api-sports.io/football/leagues/${leagueId}.png`}
-              />
-              <LeagueName>{leagueName[leagueId]}</LeagueName>
-            </LeagueContainer>
             <TeamContainer>
               <Divider>Time</Divider>
               <PlayersContainer>
@@ -154,7 +158,10 @@ export default function TeamDetails({ open, setOpen, data, leagueId }) {
               </PlayersContainer>
             </TeamContainer>
 
-            <TeamStats teamId="1" />
+            <StatsContainer>
+              <Divider>Estatísticas</Divider>
+              <TeamStats teamId="1" />
+            </StatsContainer>
           </TeamDetailsContainer>
           {openDetails && (
             <PlayerDetails

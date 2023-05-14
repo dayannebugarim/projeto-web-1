@@ -18,7 +18,7 @@ import {
   StatsTitle,
   StatsValue,
 } from "./styles";
-import { playerPosition } from "../../utils/dataTypes";
+import { playerPosition } from "../../utils/enums";
 
 export default function PlayerDetails({
   open,

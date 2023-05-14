@@ -60,9 +60,11 @@ export const TeamDetailsContainer = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  background: white;
+  background: #17232c;
   border-radius: 6px 6px 0px 0px;
-  box-shadow: 0px -2px 25px #b6b6b6;
+  border: 1px solid #263540;
+  border-bottom: none;
+  box-shadow: 0px -2px 25px rgba(0, 0, 0, 0.3);
 `;
 
 export const TeamHeader = styled.div`
@@ -70,7 +72,6 @@ export const TeamHeader = styled.div`
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  border: 1px solid red;
 `;
 
 export const CloseButton = styled.button`
@@ -81,7 +82,7 @@ export const CloseButton = styled.button`
 `;
 
 export const TeamLogoContainer = styled.div`
-  background-color: #e8e8e8;
+  background-color: #2b383e;
   display: flex;
   align-items: center;
   padding: 0.8rem;
@@ -92,23 +93,36 @@ export const TeamLogo = styled.img`
   max-width: 64px;
 `;
 
-export const TeamName = styled.h2``;
+export const TeamInfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.5rem;
+`;
 
-export const TeamFoundation = styled.span``;
+export const TeamName = styled.h2`
+  color: #30c3a2;
+`;
+
+export const TeamFoundation = styled.span`
+  color: #818e95;
+`;
 
 export const LeagueContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border: 1px solid red;
 `;
 
 export const LeagueLogo = styled.img`
   max-width: 18px;
 `;
 
-export const LeagueName = styled.span``;
+export const LeagueName = styled.span`
+  font-size: 0.85rem;
+  color: #818e95;
+`;
 
 export const TeamContainer = styled.div`
   display: flex;
@@ -117,15 +131,32 @@ export const TeamContainer = styled.div`
   margin-top: 2rem;
 `;
 
-export const Divider = styled.span`
-  border: 1px solid red;
+export const Divider = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #818e95;
+
+  &::before,
+  &::after {
+    content: "";
+    height: 1px;
+    background-color: #2b383e;
+    flex-grow: 1;
+  }
 `;
 
 export const PlayersContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
-  border: 1px solid red;
+  gap: 1.2rem;
   margin-bottom: 2rem;
+`;
+
+export const StatsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 `;
